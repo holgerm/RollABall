@@ -16,23 +16,18 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Set the count to zero 
-        count = 0;
-
-        // Run the SetCountText function to update the UI (see below)
-        SetCountAndWinText();
-
-        // Set the text property of our Win Text UI to an empty string, making the 'You Win' (game over message) blank
-        winText.text = "";
-
         Instance = this;
-
     }
 
     public void StartGame()
     {
         count = 0;
         winText.text = "";
+        PlayedTime = 0f;
+
+        // Run the SetCountText function to update the UI (see below)
+        UpdateTexts();
+
         GetComponent<Canvas>().gameObject.SetActive(false);
 
         Transform[] pickupTs = (Transform[])pickups.GetComponentsInChildren<Transform>(true);
@@ -41,7 +36,14 @@ public class GameController : MonoBehaviour
             Transform pickup = pickupTs[i];
             pickup.gameObject.SetActive(true);
         }
+    }
 
+    public float PlayedTime { protected set; get; }
+
+    public void AddPlayTime(float deltatime)
+    {
+        // Add playtime:
+        PlayedTime += deltatime;
     }
 
     public void Point()
@@ -50,15 +52,15 @@ public class GameController : MonoBehaviour
         count = count + 1;
 
         // Run the 'SetCountText()' function (see below)
-        SetCountAndWinText();
+        UpdateTexts();
         Handheld.Vibrate();
     }
 
     // Create a standalone function that can update the 'countText' UI and check if the required amount to win has been achieved
-    void SetCountAndWinText()
+    void UpdateTexts()
     {
         // Update the text field of our 'countText' variable
-        countText.text = "Count: " + count.ToString();
+        countText.text = "Count: " + count.ToString() + "\nTime: " + string.Format("{0:0.0}s", PlayedTime);
 
         // Check if our 'count' is equal to or exceeded 12
         if (count >= 12)

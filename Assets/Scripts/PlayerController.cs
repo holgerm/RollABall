@@ -23,11 +23,11 @@ public class PlayerController : MonoBehaviour
         // Assign the Rigidbody component to our private rb variable
         rb = GetComponent<Rigidbody>();
 
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         MovementStrategy = new KeyboardStrategy();
-        #elif UNITY_IOS || UNITY_ANDROID
+#elif UNITY_IOS || UNITY_ANDROID
         MovementStrategy = new DragStrategy();
-        #endif
+#endif
     }
 
     // Each physics step..
@@ -39,8 +39,10 @@ public class PlayerController : MonoBehaviour
         // Add a physical force to our Player rigidbody using our 'movement' Vector3 above, 
         // multiplying it by 'speed' - our public player speed that appears in the inspector
         rb.AddForce(movement * speed);
+
+        GameController.Instance.AddPlayTime(Time.fixedDeltaTime);
     }
-    
+
     void OnTriggerEnter(Collider other)
     {
         // ..and if the game object we intersect has the tag 'Pick Up' assigned to it..
