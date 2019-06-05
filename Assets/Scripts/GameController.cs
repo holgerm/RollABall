@@ -8,7 +8,6 @@ public class GameController : MonoBehaviour
     public Text countText;
     public Text winText;
     public SettingsController settings;
-    public PlayerController playerCtrl;
 
     private int count;
 

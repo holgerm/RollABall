@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     // Create public variables for player speed, and for the Text UI game objects
     public float speed;
