@@ -17,6 +17,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         Instance = this;
+        OnGameStateChanged += UpdateTexts;
     }
 
     public void StartGame()
@@ -38,7 +39,22 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public float PlayedTime { protected set; get; }
+    private float _playedTime;
+    public float PlayedTime
+    {
+        protected set
+        {
+            _playedTime = value;
+            OnGameStateChanged();
+        }
+        get
+        {
+            return _playedTime;
+        }
+    }
+
+    public delegate void Void2Void();
+    public event Void2Void OnGameStateChanged;
 
     public void AddPlayTime(float deltatime)
     {
@@ -50,9 +66,8 @@ public class GameController : MonoBehaviour
     {
         // Add one to the score variable 'count'
         count = count + 1;
+        OnGameStateChanged();
 
-        // Run the 'SetCountText()' function (see below)
-        UpdateTexts();
         Handheld.Vibrate();
     }
 
@@ -71,11 +86,4 @@ public class GameController : MonoBehaviour
         }
     }
 
-    // When this game object intersects a collider with 'is trigger' checked, 
-    // store a reference to that collider in a variable named 'other'..
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }
