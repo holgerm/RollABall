@@ -23,15 +23,11 @@ public class PlayerController : MonoBehaviour
         // Assign the Rigidbody component to our private rb variable
         rb = GetComponent<Rigidbody>();
 
-        if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
-        {
-            MovementStrategy = new DragStrategy();
-        } else
-        {
-            // TODO: do in settings or change automatically:
-            MovementStrategy = new KeyboardStrategy();
-        }
-
+        #if UNITY_EDITOR
+        MovementStrategy = new KeyboardStrategy();
+        #elif UNITY_IOS || UNITY_ANDROID
+        MovementStrategy = new DragStrategy();
+        #endif
     }
 
     // Each physics step..
