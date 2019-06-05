@@ -1,13 +1,10 @@
-﻿using UnityEngine;
-
-// Include the namespace required to use Unity UI
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
-using System.Collections;
-
-public class PlayerController : MonoBehaviour
+public abstract class PlayerController : MonoBehaviour
 {
-
     // Create public variables for player speed, and for the Text UI game objects
     public float speed;
     public Text countText;
@@ -44,15 +41,7 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(movement * speed);
     }
 
-    protected virtual Vector3 GetMovement()
-    {
-        // Set some local float variables equal to the value of our Horizontal and Vertical Inputs
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
-
-        // Create a Vector3 variable, and assign X and Z to feature our horizontal and vertical float variables above
-        return new Vector3(moveHorizontal, 0.0f, moveVertical);
-    }
+    protected abstract Vector3 GetMovement();
 
     // When this game object intersects a collider with 'is trigger' checked, 
     // store a reference to that collider in a variable named 'other'..

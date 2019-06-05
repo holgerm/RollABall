@@ -3,7 +3,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerGyroController : PlayerController
+public class PlayerGyroController : PlayerKeyboardController
 {
 
     protected override Vector3 GetMovement()
