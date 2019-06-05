@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerAccelerometerStrategy : PlayerStrategy
+public class AccelerometerStrategy : MovementStrategy
 {
     public float standardTilt = 0.6f;
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface PlayerStrategy 
+public interface MovementStrategy 
 {
     Vector3 GetMovement();
 }

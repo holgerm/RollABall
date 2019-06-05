@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerDragStrategy : PlayerStrategy
+public class DragStrategy : MovementStrategy
 {
     float slowDown = 0.5f;
     public Vector3 GetMovement()

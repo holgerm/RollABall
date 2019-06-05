@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 using System.Collections;
 
-public class PlayerKeyboardStrategy : PlayerStrategy
+public class KeyboardStrategy : MovementStrategy
 {
 
     public Vector3 GetMovement()

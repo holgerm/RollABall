@@ -5,17 +5,17 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    public MovementStrategy MovementStrategy
+    {
+        get;
+        set;
+    }
+
     // Create public variables for player speed, and for the Text UI game objects
     public float speed;
 
     // Create private references to the rigidbody component on the player, and the count of pick up objects picked up so far
     private Rigidbody rb;
-
-    public PlayerStrategy PlayerStrategy
-    {
-        get;
-        set;
-    }
 
     // At the start of the game..
     void Start()
@@ -25,11 +25,11 @@ public class PlayerController : MonoBehaviour
 
         if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
         {
-            PlayerStrategy = new PlayerDragStrategy();
+            MovementStrategy = new DragStrategy();
         } else
         {
             // TODO: do in settings or change automatically:
-            PlayerStrategy = new PlayerKeyboardStrategy();
+            MovementStrategy = new KeyboardStrategy();
         }
 
     }
@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         // Create a Vector3 variable, and assign X and Z to feature our horizontal and vertical float variables above
-        Vector3 movement = PlayerStrategy.GetMovement();
+        Vector3 movement = MovementStrategy.GetMovement();
 
         // Add a physical force to our Player rigidbody using our 'movement' Vector3 above, 
         // multiplying it by 'speed' - our public player speed that appears in the inspector
