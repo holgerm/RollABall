@@ -2,6 +2,7 @@
 
 public class PlayerDragStrategy : PlayerStrategy
 {
+    float slowDown = 0.5f;
     public Vector3 GetMovement()
     {
         if (Input.touchCount != 1)
@@ -23,7 +24,7 @@ public class PlayerDragStrategy : PlayerStrategy
                         break;
                     case TouchPhase.Moved:
                         Debug.Log("Dragging ball pos: " + Input.GetTouch(0).position);
-                        movement = Input.GetTouch(0).deltaPosition;
+                        movement = Input.GetTouch(0).deltaPosition * slowDown;
                         break;
                 }
             }
