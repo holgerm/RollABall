@@ -45,4 +45,19 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(movement * speed);
     }
     
+    void OnTriggerEnter(Collider other)
+    {
+        // ..and if the game object we intersect has the tag 'Pick Up' assigned to it..
+        if (other.gameObject.CompareTag("Pick Up"))
+        {
+            // Make the other game object (the pick up) inactive, to make it disappear
+            other.gameObject.SetActive(false);
+
+            if (GameController.Instance != null)
+            {
+                GameController.Instance.Point();
+            }
+        }
+    }
+
 }
