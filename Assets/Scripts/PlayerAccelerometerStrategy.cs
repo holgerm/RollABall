@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerAccelerometerController : PlayerController
+public class PlayerAccelerometerStrategy : PlayerStrategy
 {
     public float standardTilt = 0.6f;
 
-    protected override Vector3 GetMovement()
+    public Vector3 GetMovement()
     {
         float moveHorizontal = Input.acceleration.x;
         float moveVertical = Input.acceleration.y  + standardTilt;

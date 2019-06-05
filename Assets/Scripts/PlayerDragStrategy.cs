@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-public class PlayerDragController : PlayerController
+public class PlayerDragStrategy : PlayerStrategy
 {
-    protected override Vector3 GetMovement()
+    public Vector3 GetMovement()
     {
         if (Input.touchCount != 1)
             return Vector3.zero;

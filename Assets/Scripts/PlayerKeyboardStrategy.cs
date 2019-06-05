@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 using System.Collections;
 
-public class PlayerKeyboardController : PlayerController
+public class PlayerKeyboardStrategy : PlayerStrategy
 {
 
-    protected override Vector3 GetMovement()
+    public Vector3 GetMovement()
     {
         // Set some local float variables equal to the value of our Horizontal and Vertical Inputs
         float moveHorizontal = Input.GetAxis("Horizontal");
