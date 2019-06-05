@@ -3,7 +3,7 @@
 public class PinchZoom : MonoBehaviour
 {
     Camera cam;
-    public float zoomSpeed = 0.5f;        // The rate of change of the field of view
+    public float zoomSpeed = 0.2f;        // The rate of change of the field of view
 
     private void Start()
     {
@@ -35,7 +35,7 @@ public class PinchZoom : MonoBehaviour
         // Change the field of view based on the change in distance between the touches.
         cam.fieldOfView += deltaTouchAbstand * zoomSpeed;
 
-        // Clamp the field of view to make sure it's between 0 and 180.
-        cam.fieldOfView = Mathf.Clamp(cam.fieldOfView, 0.1f, 179.9f);
+        // Clamp the field of view to make sure it's neither too small nor too large.
+        cam.fieldOfView = Mathf.Clamp(cam.fieldOfView, 20f, 160f);
     }
 }
