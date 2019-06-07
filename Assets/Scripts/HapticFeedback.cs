@@ -12,4 +12,13 @@ public class HapticFeedback : MonoBehaviour
             Handheld.Vibrate();
         }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            GameController.Instance.WallHit();
+        }
+    }
+
 }

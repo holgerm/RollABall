@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,6 +8,7 @@ public class GameController : MonoBehaviour
 {
     public Text countText;
     public Text winText;
+    public Canvas SettingsCanvas;
 
     public static GameController Instance;
     public GameObject pickups;
@@ -29,11 +31,12 @@ public class GameController : MonoBehaviour
         count = 0;
         winText.text = "";
         PlayedTime = 0f;
+        wallHit = 0;
 
         // Run the SetCountText function to update the UI (see below)
         UpdateTexts();
 
-        GetComponent<Canvas>().gameObject.SetActive(false);
+        SettingsCanvas.gameObject.SetActive(false);
 
         Transform[] pickupTs = (Transform[])pickups.GetComponentsInChildren<Transform>(true);
         for (int i = 0; i < pickupTs.Length; i++)
@@ -41,6 +44,13 @@ public class GameController : MonoBehaviour
             Transform pickup = pickupTs[i];
             pickup.gameObject.SetActive(true);
         }
+    }
+
+    int wallHit;
+    internal void WallHit()
+    {
+        wallHit += 1;
+        Handheld.Vibrate();
     }
 
     private float _playedTime;
@@ -101,14 +111,15 @@ public class GameController : MonoBehaviour
         countText.text =
             "Count: " + count.ToString() +
             "\nTime: " + string.Format("{0:0.0}s", PlayedTime) +
-            "\nWay: " + string.Format("{0:0.0}px", MovedWay);
+            "\nWay: " + string.Format("{0:0.0}", MovedWay) +
+            "\nWall Hits: " + string.Format("{0}", wallHit);
 
         // Check if our 'count' is equal to or exceeded 12
         if (count >= 12)
         {
             // Set the text value of our 'winText'
             winText.text = "You Win!\n\n" + countText.text;
-            GetComponent<Canvas>().gameObject.SetActive(true);
+            SettingsCanvas.gameObject.SetActive(true);
         }
         else
         {
