@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour
 #endif
     }
 
+    Vector3 oldPosition;
+
     // Each physics step..
     void FixedUpdate()
     {
@@ -41,6 +43,13 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(movement * speed);
 
         GameController.Instance.AddPlayTime(Time.fixedDeltaTime);
+        if (oldPosition != null && oldPosition != Vector3.zero)
+        {
+            float way = (oldPosition - rb.position).magnitude;
+            GameController.Instance.AddMovedWay(way);
+        }
+        oldPosition = rb.position;
+
     }
 
     void OnTriggerEnter(Collider other)

@@ -75,18 +75,44 @@ public class GameController : MonoBehaviour
         Handheld.Vibrate();
     }
 
+    private float _movedWay;
+    public float MovedWay
+    {
+        protected set
+        {
+            _movedWay = value;
+            OnGameStateChanged();
+        }
+        get
+        {
+            return _movedWay;
+        }
+    }
+
+    public void AddMovedWay(float newWay)
+    {
+        MovedWay += newWay;
+    }
+
     // Create a standalone function that can update the 'countText' UI and check if the required amount to win has been achieved
     void UpdateTexts()
     {
         // Update the text field of our 'countText' variable
-        countText.text = "Count: " + count.ToString() + "\nTime: " + string.Format("{0:0.0}s", PlayedTime);
+        countText.text =
+            "Count: " + count.ToString() +
+            "\nTime: " + string.Format("{0:0.0}s", PlayedTime) +
+            "\nWay: " + string.Format("{0:0.0}px", MovedWay);
 
         // Check if our 'count' is equal to or exceeded 12
         if (count >= 12)
         {
             // Set the text value of our 'winText'
-            winText.text = "You Win!";
+            winText.text = "You Win!\n\n" + countText.text;
             GetComponent<Canvas>().gameObject.SetActive(true);
+        }
+        else
+        {
+            winText.text = "";
         }
     }
 
