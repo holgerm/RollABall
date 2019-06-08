@@ -9,8 +9,6 @@ public class AccelerometerStrategy : MovementStrategy
         float moveHorizontal = Input.acceleration.x;
         float moveVertical = Input.acceleration.y  + standardTilt;
 
-        Debug.Log("y: " + moveVertical);
-
         return new Vector3(moveHorizontal, 0.0f, moveVertical);
     }
 

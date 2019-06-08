@@ -35,7 +35,6 @@ public class DragStrategy : MovementStrategy
         }
 
         Vector3 movement3D = new Vector3(movement.x, 0.0f, movement.y);
-        movement = Vector2.zero;
         return movement3D;
     }
 
