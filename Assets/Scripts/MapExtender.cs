@@ -6,6 +6,7 @@ public class MapExtender : MonoBehaviour
 {
     [SerializeField]int size = 20;
     [SerializeField] GameObject prefab;
+    [SerializeField] GameObject[] pickUps;
     [SerializeField] GameObject parent;
     int triggerPosition;
     // Start is called before the first frame update
@@ -21,6 +22,9 @@ public class MapExtender : MonoBehaviour
         {
             GameObject newGroundObject =  Instantiate(prefab,new Vector3(0, 0, triggerPosition + 2*size), Quaternion.identity);
             newGroundObject.transform.SetParent(parent.transform);
+            GameObject newPickUp = Instantiate(pickUps[Random.Range(0,pickUps.Length)], newGroundObject.transform.position, Quaternion.identity);
+            newGroundObject.transform.SetParent(parent.transform);
+
             triggerPosition += size;
         }
     }
