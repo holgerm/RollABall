@@ -9,9 +9,11 @@ public class GameController : MonoBehaviour
     public Text countText;
     public Text winText;
     public Canvas SettingsCanvas;
+    public GameObject player;
 
     public static GameController Instance;
     public GameObject pickups;
+    public GameObject southBorder;
 
     private int count;
 
@@ -37,6 +39,7 @@ public class GameController : MonoBehaviour
         UpdateTexts();
 
         SettingsCanvas.gameObject.SetActive(false);
+        player.SetActive(true);
 
         Transform[] pickupTs = (Transform[])pickups.GetComponentsInChildren<Transform>(true);
         for (int i = 0; i < pickupTs.Length; i++)
@@ -104,9 +107,24 @@ public class GameController : MonoBehaviour
         MovedWay += newWay;
     }
 
+    internal void DeathWallHit()
+    {
+        winText.text = "You Lost!\n\n";
+        SettingsCanvas.gameObject.SetActive(true);
+        player.SetActive(false);
+        OnGameStateChanged();
+    }
+
     // Create a standalone function that can update the 'countText' UI and check if the required amount to win has been achieved
     void UpdateTexts()
     {
+        // in case we lost:
+        if (winText.text == "You Lost!\n\n")
+        {
+            return;
+        }
+
+        // in case we are still playing:
         // Update the text field of our 'countText' variable
         countText.text =
             "Count: " + count.ToString() +
@@ -114,8 +132,8 @@ public class GameController : MonoBehaviour
             "\nWay: " + string.Format("{0:0.0}", MovedWay) +
             "\nWall Hits: " + string.Format("{0}", wallHit);
 
-        // Check if our 'count' is equal to or exceeded 12
-        if (count >= 12)
+        // In Case we won:
+        if (count >= 12000)
         {
             // Set the text value of our 'winText'
             winText.text = "You Win!\n\n" + countText.text;
