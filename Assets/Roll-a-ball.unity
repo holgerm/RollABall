@@ -465,7 +465,9 @@ MonoBehaviour:
   countText: {fileID: 2023482906}
   winText: {fileID: 893736720}
   SettingsCanvas: {fileID: 754196786}
+  player: {fileID: 7703432}
   pickups: {fileID: 0}
+  southBorder: {fileID: 0}
 --- !u!4 &456214361
 Transform:
   m_ObjectHideFlags: 0
