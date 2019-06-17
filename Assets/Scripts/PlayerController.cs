@@ -23,11 +23,24 @@ public class PlayerController : MonoBehaviour
         // Assign the Rigidbody component to our private rb variable
         rb = GetComponent<Rigidbody>();
 
-#if UNITY_EDITOR
-        MovementStrategy = new KeyboardStrategy();
-#elif UNITY_IOS || UNITY_ANDROID
-        MovementStrategy = new DragStrategy();
-#endif
+        switch (Application.platform)
+        {
+            case RuntimePlatform.OSXEditor:
+            case RuntimePlatform.WindowsEditor:
+            case RuntimePlatform.LinuxEditor:
+            case RuntimePlatform.OSXPlayer:
+            case RuntimePlatform.WindowsPlayer:
+            case RuntimePlatform.LinuxPlayer:
+                MovementStrategy = new KeyboardStrategy();
+                break;
+            case RuntimePlatform.Android:
+            case RuntimePlatform.IPhonePlayer:
+                MovementStrategy = new AccelerometerStrategy();
+                break;
+            default:
+                MovementStrategy = new KeyboardStrategy();
+                break;
+        }
     }
 
     Vector3 oldPosition;
