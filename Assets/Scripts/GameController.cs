@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
@@ -12,7 +9,6 @@ public class GameController : MonoBehaviour
     public GameObject player;
 
     public static GameController Instance;
-    public GameObject pickups;
     public GameObject southBorder;
 
     private int count;
@@ -28,6 +24,12 @@ public class GameController : MonoBehaviour
         OnGameStateChanged += UpdateTexts;
     }
 
+    [SerializeField]
+    GameObject groundPrefab;
+    [SerializeField]
+    Transform map;
+    [SerializeField] GameObject[] pickUps;
+
     public void StartGame()
     {
         count = 0;
@@ -41,12 +43,20 @@ public class GameController : MonoBehaviour
         SettingsCanvas.gameObject.SetActive(false);
         player.SetActive(true);
 
-        Transform[] pickupTs = (Transform[])pickups.GetComponentsInChildren<Transform>(true);
-        for (int i = 0; i < pickupTs.Length; i++)
-        {
-            Transform pickup = pickupTs[i];
-            pickup.gameObject.SetActive(true);
-        }
+        GameObject newGroundObject = Instantiate(groundPrefab, new Vector3(0, 0, 0), Quaternion.identity, map);
+        newGroundObject = Instantiate(groundPrefab, new Vector3(0, 0, 20), Quaternion.identity, map);
+        GameObject newPickUp = Instantiate(pickUps[Random.Range(0, pickUps.Length)], newGroundObject.transform.position, Quaternion.identity, map);
+        newGroundObject = Instantiate(groundPrefab, new Vector3(0, 0, 40), Quaternion.identity, map);
+        newPickUp = Instantiate(pickUps[Random.Range(0, pickUps.Length)], newGroundObject.transform.position, Quaternion.identity, map);
+
+        southBorder.transform.position = new Vector3(0, 0, -10);
+        southBorder.gameObject.SetActive(true);
+
+        player.transform.position = new Vector3(0, 0, 0);
+        //newGroundObject.transform.SetParent(parent.transform);
+        //GameObject newPickUp = Instantiate(pickUps[Random.Range(0, pickUps.Length)], newGroundObject.transform.position, Quaternion.identity);
+        //newGroundObject.transform.SetParent(parent.transform);
+
     }
 
     int wallHit;
