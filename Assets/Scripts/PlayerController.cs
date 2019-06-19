@@ -78,10 +78,6 @@ public class PlayerController : MonoBehaviour
                 GameController.Instance.Point();
             }
         }
-        if (other.gameObject.CompareTag("Deathwall"))
-        {
-            GameController.Instance.DeathWallHit();
-        }
     }
 
 }

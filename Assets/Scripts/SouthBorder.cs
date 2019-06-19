@@ -17,4 +17,20 @@ public class SouthBorder : MonoBehaviour
     {
         transform.Translate(0,0,speed * Time.deltaTime);
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            GameController.Instance.DeathWallHit();
+            return;
+        }
+
+        if (other.gameObject.CompareTag("Pick Up"))
+        {
+            other.gameObject.SetActive(false);
+            return;
+        }
+    }
+
 }
